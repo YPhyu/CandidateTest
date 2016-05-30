@@ -1,0 +1,41 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Questionnaire";
+}
+
+<div ng-controller="QuestionnaireController as vm">
+
+
+
+    <h1 class="page-header">
+        {{vm.questionnaire.questionnaireTitle}}
+    </h1>
+
+    <form novalidate
+          name="vm.form"
+          ng-submit="vm.form.$valid && vm.save()">
+        <div class="alert alert-info" ng-hide="vm.errorMessage != null">
+            Answer the question below.
+        </div>
+        <div class="alert alert-danger" ng-show="vm.errorMessage != null" ->
+            {{vm.errorMessage}}
+        </div>
+
+        <div ng-repeat="question in vm.questionnaire.questions">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{question.questionText}}
+                </div>
+                <answer question="question"></answer>
+              
+            </div>
+        </div>
+       
+        <div class="panel-footer">
+            <button class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-warning" ng-click="vm.clear()">Clear</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,26 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en" ng-app="PairingTest">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Paring Test</title>
+    @Styles.Render("~/styles/all.css")
+    @RenderSection("Styles", required: false)
+   
+</head>
+<body>
+    <div id="wrapper" ng-cloak>
+          <div id="page-wrapper">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    @Scripts.Render("~/scripts/all.js")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

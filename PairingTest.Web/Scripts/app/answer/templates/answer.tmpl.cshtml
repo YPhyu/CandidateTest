@@ -1,0 +1,12 @@
+﻿@model PairingTest.Web.Models.Answer
+
+<div class="panel-body">
+    <input ng-model="vm.answer.questionId"
+           type="hidden">
+    <div class="form-group has-feedback" form-group-validation="answer{{vm.answer.questionId}}">
+        <input ng-model="vm.answer.answerText"
+               class="form-control" name="answer{{vm.answer.questionId}}" type="text" required="">
+    </div>
+    
+</div>
+
