@@ -10,5 +10,13 @@ namespace PairingTest.Unit.Tests.QuestionServiceWebApi.Stubs
         {
             return ExpectedQuestions;
         }
+
+        public Question AddQuestion(Question question)
+        {
+            question.Id = ExpectedQuestions.Questions.Count + 1;
+            ExpectedQuestions.Questions.Add(question);
+
+            return question;
+        }
     }
 }

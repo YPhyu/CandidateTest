@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Threading.Tasks;
 using PairingTest.Web.Interfaces;
+using PairingTest.Web.Models;
 using PairingTest.Web.Services;
 
 namespace PairingTest.Web.Controllers
@@ -29,6 +30,18 @@ namespace PairingTest.Web.Controllers
         {
             //new QuestionnaireViewModel()
             var result = await _service.GetQuestionsAsync();
+            return BetterJson(result);
+        }
+
+        public async Task<JsonResult> Add(Question question)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonValidationError();
+            }
+
+            var result = await _service.AddQuesitonAsync(question);
+
             return BetterJson(result);
         }
     }

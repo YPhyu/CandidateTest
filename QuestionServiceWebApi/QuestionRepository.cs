@@ -1,13 +1,16 @@
 using System.Collections.Generic;
+using System.Linq;
 using QuestionServiceWebApi.Interfaces;
 
 namespace QuestionServiceWebApi
 {
     public class QuestionRepository : IQuestionRepository
     {
-        public Questionnaire GetQuestionnaire()
+        private Questionnaire _questionnaire;
+
+        public QuestionRepository()
         {
-            return new Questionnaire
+            _questionnaire =  new Questionnaire
             {
                 QuestionnaireTitle = "Geography Questions",
                 Questions = new List<Question>
@@ -34,6 +37,24 @@ namespace QuestionServiceWebApi
                     },
                 }
             };
+        }
+        public Questionnaire GetQuestionnaire()
+        {
+            return _questionnaire;
+        }
+
+        public Question AddQuestion(Question question)
+        {
+            if (question != null)
+            {
+                //TODO assign better Id
+                question.Id = _questionnaire.Questions.Last().Id + 1;
+                _questionnaire.Questions.Add(question);
+
+                return question;
+            }
+
+            return new Question();
         }
     }
 }

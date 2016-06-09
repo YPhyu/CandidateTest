@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using QuestionServiceWebApi.Interfaces;
 
 namespace QuestionServiceWebApi.Controllers
@@ -23,15 +27,28 @@ namespace QuestionServiceWebApi.Controllers
         }
 
         // GET api/questions/5
-        public string Get(int id)
+        public Question Get(int id)
         {
-            return "";
+            var questionnaire = _questionRepository.GetQuestionnaire();
+            return questionnaire?.Questions.SingleOrDefault(x => x.Id == id);
         }
 
         // POST api/questions
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]Question question)
         {
+            if(!ModelState.IsValid)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+
+            question = _questionRepository.AddQuestion(question);
+
+            var response = Request.CreateResponse(HttpStatusCode.Created, question);
+
+            var uriString = Url.Link("DefaultApi", new { id = question.Id }) ?? string.Empty;
+            response.Headers.Location = new Uri(uriString);
+
+            return response;
         }
+
 
         // PUT api/questions/5
         public void Put(int id, [FromBody]string value)

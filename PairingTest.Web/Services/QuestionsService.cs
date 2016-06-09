@@ -35,5 +35,14 @@ namespace PairingTest.Web.Services
 
             return JsonConvert.DeserializeObject<QuestionnaireViewModel>(result);
         }
+
+        public async Task<Question> AddQuesitonAsync(Question question)
+        {
+            var response = await _httpClient.PostAsJsonAsync<Question>("uri", question);
+
+            question = response.Content.ReadAsAsync<Question>().Result;
+
+            return question;
+        }
     }
 }
